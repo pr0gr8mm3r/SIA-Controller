@@ -13,8 +13,8 @@ class ComponentMap implements Component {
     Color arrowColor;
 
     //BG
-    PShader shader;
-    PImage waterTexture;
+    RoundedRectBg bg;
+    
 
     float y;
     float rotation;
@@ -33,19 +33,10 @@ class ComponentMap implements Component {
     }
 
     private void setupBg() {
-        waterTexture = loadImage("wasser_seamless.png");
-        shader = loadShader("water.frag.glsl", "water.vert.glsl");
+        bg = new RoundedRectBg(pos.getLeft(), pos.getTop(), pos.w, pos.h, 0);
     }
     private void drawBg() {
-        y -= speed/(0.2*height);
-        rotation -= (direction/(0.15*width))*speed;
-        shader.set("yTranslation", y);
-        shader.set("rotation", rotation);
-
-        shader(shader);
-        image(waterTexture, pos.getLeft(), pos.getTop(), pos.w, pos.h);
-
-        resetShader();
+        bg.draw();
     }
 
     private void setupArrow() {
