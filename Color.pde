@@ -1,3 +1,6 @@
+/**
+* Klasse, die eine Farbe darstellt (per rot, grün, blau und alpha) und nützliche Zeichen-Funktionen enthält
+
 class Color {
     public float r;
     public float g;
