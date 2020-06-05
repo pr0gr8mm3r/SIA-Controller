@@ -5,6 +5,9 @@ class ScreenMain implements Screen {
   ComponentMap map;
   ComponentControlPad controlPad;
 
+  public float speed = 0;
+  public float direction = 0;
+
   ScreenMain() {
     //Karte quadratisch darstellen
     int mapWidth = height;
@@ -24,8 +27,10 @@ class ScreenMain implements Screen {
     background(255, 255, 255, 190);
     
     controlPad.draw();
-    
+
+    speed = controlPad.speed;
     map.speed = controlPad.speed;
+    direction = controlPad.direction;
     map.direction = controlPad.direction;
 
     map.draw();

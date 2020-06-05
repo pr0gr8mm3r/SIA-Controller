@@ -1,3 +1,7 @@
+/**
+* Farbpalette für das Projekt basierend auf dem Design-Entwurf
+**/
+
 public class Colors {
 
   public Color textNormalDark() {

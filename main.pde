@@ -15,6 +15,7 @@ Boat currentBoat;
 
 BtManager btManager;
 
+//Zum Testen, wenn kein BT-Modul zur Verfügung steht
 final static Boolean demoMode = false;
 
 void setup() {
@@ -50,6 +51,27 @@ void draw() {
     if (btManager.isConnected()) {
         if (!currentBoat.connected) currentBoat.setConnected(true);
         if (currentScreen instanceof ScreenConnecting) changeScreen(new ScreenMain());
+        else if (currentScreen instanceof ScreenMain) {
+            //Bluetooth-Daten senden
+            ScreenMain screenMain = (ScreenMain) currentScreen;
+
+            float speed = screenMain.speed;
+            float direction = screenMain.direction;
+
+            float y = (speed + 1)/2;
+            float x = (direction + 1)/2;
+
+            float leftToMiddleFraction = clamp((x * 2), 0.0f, 1.0f);
+            float middleToRightFraction = clamp(((1.0f - x) * 2), 0.0f, 1.0f);
+
+            int rightMotor = Math.round(y * leftToMiddleFraction * 512);
+            int leftMotor = Math.round(y * middleToRightFraction * 512);
+
+            String message = "#,888," + String.valueOf(leftMotor) + "," + String.valueOf(rightMotor) + ",999";
+
+            println(message);
+            btManager.send(message);
+        }
     } else {
         if (currentBoat.connected) currentBoat.setConnected(false);
         if (currentScreen instanceof ScreenMain) {
@@ -66,6 +88,11 @@ void draw() {
     //Bluetooth-Statusleiste zeichnen
     btStatusComponent.updateBoat(currentBoat);
     btStatusComponent.draw();
+}
+
+//Hilfsfunktion zum Begrenzen von Werten in einem Bereich
+public static float clamp(float val, float min, float max) {
+    return Math.max(min, Math.min(max, val));
 }
 
 void changeScreen(Screen nextScreen) {

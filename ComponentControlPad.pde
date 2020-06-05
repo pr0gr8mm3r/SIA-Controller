@@ -1,3 +1,8 @@
+/**
+* siehe auch Component.pde
+* Component, mit dem der Nutzer die Richtung und Geschwindigkeit des Bootes bestimmen kann
+**/
+
 class ComponentControlPad implements Component {
   
   float speed = 0;
@@ -16,10 +21,12 @@ class ComponentControlPad implements Component {
     Position pos;
     
     RoundedRectBg bg;
-    
+
+    //Pfeile um den Steuerknüppel, wenn er noch nicht bewegt wurde
     PImage chevronRing;
     float chevronRingTolerance = 0.05f;
 
+  //Initialisierung (entspricht ca. void setup())
     ComponentControlPad(Position pos) {
         this.pos = pos;
             
