@@ -1,3 +1,6 @@
+/**
+* Klasse, die ein Boot mit Name, Mac-Adresse und Verbindungsstatus darstellt
+**/
 class Boat {
   
   String name;
