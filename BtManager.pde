@@ -1,3 +1,6 @@
+/**
+* Standarte-Bluetooth-Funktionen die ausgelagert wurden, um main.pde lesbar und übersichtlich zu machen
+
 import ketai.net.bluetooth.*;
 
 class BtManager {
