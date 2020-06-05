@@ -1,6 +1,6 @@
 /**
 * siehe auch Animator.pde
-* implementiert einen Animator, der mit ausfadender Interpolation
+* implementiert einen Animator mit ausfadender Interpolation
 **/
 
 class AnimatorBounce extends Animator {
