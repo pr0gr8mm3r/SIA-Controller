@@ -1,3 +1,7 @@
+/**
+* siehe auch Animator.pde, implementiert einen Animator, der mit ausfadender Interpolation
+**/
+
 class AnimatorBounce extends Animator {
 
 	public AnimatorBounce(int duration) {
