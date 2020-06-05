@@ -1,3 +1,7 @@
+/**
+* Klasse, die das Animieren von einer Zahl von einem Wert zum anderen ermöglicht
+**/
+
 abstract class Animator {
 
 	public Animator(int duration) {
