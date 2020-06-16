@@ -15,6 +15,8 @@ Boat currentBoat;
 
 BtManager btManager;
 
+int lastPackageTimestamp = millis();
+
 //Zum Testen, wenn kein BT-Modul zur Verfügung steht
 final static Boolean demoMode = false;
 
@@ -51,7 +53,7 @@ void draw() {
     if (btManager.isConnected()) {
         if (!currentBoat.connected) currentBoat.setConnected(true);
         if (currentScreen instanceof ScreenConnecting) changeScreen(new ScreenMain());
-        else if (currentScreen instanceof ScreenMain) {
+        else if (currentScreen instanceof ScreenMain && millis() - lastPackageTimestamp >= 100 ) {
             //Bluetooth-Daten senden
             ScreenMain screenMain = (ScreenMain) currentScreen;
 
@@ -67,10 +69,12 @@ void draw() {
             int rightMotor = Math.round(y * leftToMiddleFraction * 512);
             int leftMotor = Math.round(y * middleToRightFraction * 512);
 
-            String message = "#,888," + String.valueOf(leftMotor) + "," + String.valueOf(rightMotor) + ",999";
+            String message = "" + fixedLengthStringFromNumber(leftMotor, 3) + "," + fixedLengthStringFromNumber(rightMotor, 3) + ";";
 
             println(message);
             btManager.send(message);
+
+            lastPackageTimestamp = millis();
         }
     } else {
         if (currentBoat.connected) currentBoat.setConnected(false);
@@ -88,6 +92,10 @@ void draw() {
     //Bluetooth-Statusleiste zeichnen
     btStatusComponent.updateBoat(currentBoat);
     btStatusComponent.draw();
+}
+
+public static String fixedLengthStringFromNumber(int number, int length) {
+    return new String(new char[length - String.valueOf(number).length()]).replace('\0', '0') + String.valueOf(number);
 }
 
 //Hilfsfunktion zum Begrenzen von Werten in einem Bereich
